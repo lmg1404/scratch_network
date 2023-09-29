@@ -1,5 +1,5 @@
 # scratch_network
-My attempt to create a basic neural network from scratch in Python
+My attempt to create a basic, but customizable, neural network from scratch in Python
 
 TODOS:
 - Backpropagation method for each layer and activations
