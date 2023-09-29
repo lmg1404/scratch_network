@@ -7,6 +7,6 @@ TODOS:
 - Forward propagation for each layer and activations
   - Relatively straightforward, this will be the perceptron algorithm
 - Implementation of activation functions
-  - Giving an option to decide activation functions
+  - Giving an option to decide on activation functions
 - Implementation of the network class
   - Listing layers and activations
