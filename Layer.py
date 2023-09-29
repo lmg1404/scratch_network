@@ -2,14 +2,16 @@ import numpy as np
 
 np.random.seed(0)
 class Layer:
+    # adjusted ordering that makes more sense with matrices
+    # i.e. easier to read where it's m x n
     def __init__(self, output_shape: int, input_shape: int, initializiation="random"):
         if initializiation.lower() == "random":
-            self.weights = np.random.randn(output_shape, input_shape)
-            self.bias = np.random.randn(output_shape, 1)
+            self.weights = np.random.randn(output_shape, input_shape) * 0.01
+            self.bias = np.random.randn(output_shape, 1) * 0.01
             
         elif initializiation.lower() == "zero":
-            self.weights = 0
-            self.bias = 0
+            self.weights = np.zeros((output_shape, input_shape))
+            self.bias = np.zeros((output_shape, 1))
             
         elif initializiation.lower() == "he-et-al":
             # found in this Medium article:
@@ -26,8 +28,8 @@ class Layer:
             assert self.weights.shape[1] == input.shape[0]
         except:
             raise ValueError(f"Shapes do not match {self.weights.shape} != {input.shape}")
-            
-        return self.weights@input + self.bias
+        
+        return np.dot(self.weights, input) + self.bias
         
     
     def back_prop(self):
@@ -51,10 +53,16 @@ Bias shape: {self.bias.shape}
 Bias: {self.bias}"""
         
 if __name__ == "__main__":
-    layer = Layer(3, 4)
-    print(layer)
+    layer1 = Layer(6, 3)
+    layer2 = Layer(5, 6)
+    layer3 = Layer(1, 5)    
     
-    a = np.random.randn(4,3)
-    print(a.shape)
-    output = layer.forward(a)
-    print(output)
+    a = np.random.randn(10,3)
+
+    for i in a:
+        output = i.reshape(-1, 1)
+        output = layer1.forward(output)
+        output = layer2.forward(output)
+        output = layer3.forward(output)
+        print("output: ", output)
+        
