@@ -8,6 +8,8 @@ TODOS:
   - Giving an option to decide on activation functions
 - Implementation of the network class
   - Listing layers and activations
+- Implementation of loss functions, maybe functions over classes for this one
+  - Although, if it was a class the equation and derivative could be methods and class is an argument in a network initializer
 
 Learned/keep in mind:
 - Data will have to be processed into column vectors
