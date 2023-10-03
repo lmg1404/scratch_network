@@ -3,9 +3,36 @@ from Layer import Layer
 
 np.random.seed(0)
 class Dense(Layer):
+    """
+    Class for a feedforward NN using dense architecture. This is the generic architecture.
+    
+    ...
+    
+    Attributes
+    -----------
+    weights : np.array
+        Weights of the particular layer defined for use
+    bias : np.array
+        Bias (constant term) of particular layer defined for use
+        
+    Methods
+    -----------
+    forwards(input)
+        Forward propagation to solve for a particular example given
+    backward()
+        Backward propagation to adjust weights and bias to converge the layer
+    """
     # adjusted ordering that makes more sense with matrices
     # i.e. easier to read where it's m x n
     def __init__(self, output_shape: int, input_shape: int, initializiation="random"):
+        """
+        Constructs weights and bias depending on initialization for the layer.
+        
+        Parameters
+        -----------
+        
+        
+        """
         if initializiation.lower() == "random":
             self.weights = np.random.randn(output_shape, input_shape) * 0.01
             self.bias = np.random.randn(output_shape, 1) * 0.01
@@ -24,20 +51,35 @@ class Dense(Layer):
             raise TypeError("Initialization not random, zero, or he-et-al")
         
     def forward(self, input):
+        """
+        Matrix multiplies weights and the example or other output then addes bias for further processing
+        
+        Parameters
+        -----------
+        input : np.array
+            Data from the previous layer for processing
+        
+        Returns
+        -----------
+        z : np.array
+            Processed data that is matrix multiplied by particular weight with bias added
+        """
         # ensure the shapes are correct
         try:
             assert self.weights.shape[1] == input.shape[0]
         except:
             raise ValueError(f"Shapes do not match {self.weights.shape} != {input.shape}")
         
-        return np.dot(self.weights, input) + self.bias
+        z = np.dot(self.weights, input) + self.bias
+        return z
         
     
-    def back_prop(self):
+    def backward(self):
         # TODO: look for resources to create back propagration
         pass
     
     def get_params(self, weights=True, bias=True):
+        
         if weights and bias:
             return self.weights, self.bias
         elif weights:
