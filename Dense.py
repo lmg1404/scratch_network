@@ -22,17 +22,25 @@ class Dense(Layer):
     backward()
         Backward propagation to adjust weights and bias to converge the layer
     """
-    # adjusted ordering that makes more sense with matrices
-    # i.e. easier to read where it's m x n
+    
+    
     def __init__(self, output_shape: int, input_shape: int, initializiation="random"):
         """
         Constructs weights and bias depending on initialization for the layer.
         
         Parameters
         -----------
-        
-        
+        output_shape : int
+            Shape of the input for the next layer
+        input_shape : int
+            Shape of input for this layer
+        initialization : str
+            Type of random initialization for weights and bias
         """
+        
+        # adjusted ordering that makes more sense with matrices
+        # i.e. easier to read where it's m x n
+        
         if initializiation.lower() == "random":
             self.weights = np.random.randn(output_shape, input_shape) * 0.01
             self.bias = np.random.randn(output_shape, 1) * 0.01
@@ -49,6 +57,7 @@ class Dense(Layer):
             
         else:
             raise TypeError("Initialization not random, zero, or he-et-al")
+       
         
     def forward(self, input):
         """
@@ -57,25 +66,23 @@ class Dense(Layer):
         Parameters
         -----------
         input : np.array
-            Data from the previous layer for processing
+            Data from the previous layer for processing, must be a column vector
         
         Returns
         -----------
         z : np.array
             Processed data that is matrix multiplied by particular weight with bias added
         """
-        # ensure the shapes are correct
-        try:
-            assert self.weights.shape[1] == input.shape[0]
-        except:
-            raise ValueError(f"Shapes do not match {self.weights.shape} != {input.shape}")
-        
+        self.input = input
         z = np.dot(self.weights, input) + self.bias
         return z
         
     
     def backward(self):
         # TODO: look for resources to create back propagration
+        # TODO: add optimizer choice (ADAM, GD, RMS)
+        # using the following youtube theory is very good
+        # https://www.youtube.com/watch?v=pauPCy_s0Ok
         pass
     
     def get_params(self, weights=True, bias=True):
@@ -95,7 +102,7 @@ Weights: {self.weights}
 Bias shape: {self.bias.shape}
 Bias: {self.bias}"""
         
-if __name__ == "__main__":
+if __name__ == "__main__": 
     layer1 = Layer(6, 3)
     layer2 = Layer(5, 6)
     layer3 = Layer(1, 5)    
