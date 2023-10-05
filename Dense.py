@@ -100,6 +100,7 @@ class Dense(Layer):
         self.bias -= learning_rate * grad 
         return np.dot(self.weights.T, grad) # should output in the shape of inputs of forward
         
+        
     def get_params(self, weights=True, bias=True):
         
         if weights and bias:
@@ -110,6 +111,7 @@ class Dense(Layer):
             return self.bias
         else:
             raise TypeError("Pick a parameter to view")
+      
         
     def __str__(self):
         return f"""Weights shape: {self.weights.shape}
@@ -117,19 +119,4 @@ Weights: {self.weights}
 Bias shape: {self.bias.shape}
 Bias: {self.bias}"""
         
-if __name__ == "__main__": 
-    layer1 = Dense(6, 3)
-    layer2 = Dense(5, 6)
-    layer3 = Dense(1, 5)    
-    
-    a = np.random.randn(10,3)
-
-    for i in a:
-        output = i.reshape(-1, 1)
-        print(output.shape)
-        output = layer1.forward(output)
-        print(output.shape)
-        output = layer2.forward(output)
-        output = layer3.forward(output)
-        print("output: ", output)
         
