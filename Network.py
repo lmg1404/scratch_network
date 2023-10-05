@@ -30,7 +30,7 @@ class Network:
             if verbose:
                 print(f"Epoch: {i+1} / Train loss: / Validation Loss: ")
     
-    def predict(self):
+    def predict(self, test_data):
         # TODO: just forward prop through the prediction examples
         pass
     
