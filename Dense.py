@@ -78,13 +78,28 @@ class Dense(Layer):
         return z
         
     
-    def backward(self):
-        # TODO: look for resources to create back propagration
+    def backward(self, grad, learning_rate=0.5):
+        """
+        Backwards propagation for a dense layer
+        
+        Parameters
+        -----------
+        grad : np.array
+            Gradients calculated from layer ahead, a vector
+        learning_rate : float
+            Step size to adjust the weights and bias
+            
+        Returns
+        -----------
+        np.array
+            Array to be fed into previous layers to do backpropagation, a vector
+        """
         # TODO: add optimizer choice (ADAM, GD, RMS)
-        # using the following youtube theory is very good
-        # https://www.youtube.com/watch?v=pauPCy_s0Ok
-        pass
-    
+        gradient_change = np.dot(grad, self.input.T) # two vectors, transpose to get matrix in shape of weights
+        self.weights -= learning_rate * gradient_change # should be in same shape to do element wise subtraction
+        self.bias -= learning_rate * grad 
+        return np.dot(self.weights.T, grad) # should output in the shape of inputs of forward
+        
     def get_params(self, weights=True, bias=True):
         
         if weights and bias:
@@ -103,15 +118,17 @@ Bias shape: {self.bias.shape}
 Bias: {self.bias}"""
         
 if __name__ == "__main__": 
-    layer1 = Layer(6, 3)
-    layer2 = Layer(5, 6)
-    layer3 = Layer(1, 5)    
+    layer1 = Dense(6, 3)
+    layer2 = Dense(5, 6)
+    layer3 = Dense(1, 5)    
     
     a = np.random.randn(10,3)
 
     for i in a:
         output = i.reshape(-1, 1)
+        print(output.shape)
         output = layer1.forward(output)
+        print(output.shape)
         output = layer2.forward(output)
         output = layer3.forward(output)
         print("output: ", output)
