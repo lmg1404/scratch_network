@@ -39,8 +39,4 @@ class Network:
         return self.history
     
     
-def to_list(arg):
-    our_list = ['bug', 'wheat']
-    print([arg] + our_list)
     
-to_list(6)
