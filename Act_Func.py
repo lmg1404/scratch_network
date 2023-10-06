@@ -3,21 +3,49 @@ from Activation import Activation
 
 class Sigmoid(Activation):
     def __init__(self):
-        # super().__init__(#sigmoid, #derivative of sigmoid)
-        pass            
-    # I don't think I have to define the backwards and forwards again?
+        def sigmoid(x):
+            return 1/(1 + np.exp(-x))
+        
+        def derivative_sig(x):
+            # source: https://math.stackexchange.com/questions/78575/derivative-of-sigmoid-function-sigma-x-frac11e-x
+            return sigmoid(x) * (1 - sigmoid(x))
+        
+        super().__init__(sigmoid, derivative_sig)
+    
     
 class ReLU(Activation):
     def __init__(self):
-        # super().__init___(#relu, #derivative of relu)
-        pass
+        def relu(x):
+            if x > 0:
+                return x
+            else:
+                return 0
+            
+        def derivative_relu(x):
+            if x > 0:
+                return 1
+            else:
+                return 0
+        super().__init___(relu, derivative_relu)
+    
     
 class Tanh(Activation):
     def __init__(self):
-        # super().__init__(blah)
-        pass
+        def tanh(x):
+            return np.tanh(x)
+        
+        def derivative_tanh(x):
+            return 1 - np.tanh(x) ** 2
+        
+        super().__init__(tanh, derivative_tanh)
+
 
 class Softmax(Activation):
     def __init__(self):
-        # super().__init__(blah)
-        pass
+        def softmax(x):
+            temp = np.exp(x)
+            return temp / np.sum(temp)
+        
+        def derivative_softmax(x):
+            
+    

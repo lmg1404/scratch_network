@@ -4,7 +4,7 @@ class Activation(Layer):
     def __init__(self, forward_func, backwards_func):
         # these are gonna be functions, makes it easier
         self.forward_func = forward_func
-        self.backwards_func = backwards_func
+        self.backward_func = backwards_func
         
     def forward(self, input):
         # input is saved for back prop
