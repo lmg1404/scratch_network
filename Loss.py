@@ -1,7 +1,8 @@
 import numpy as np
 
-y = np.array([0, 0, 0, 1])
-y_hat = np.array([0, 1, 0, 0])
+class Binary_Cross_Entropy:
+    def compute(self, inputs):
+        pass
 
 def multi_class_cross_entropy(y, y_hat):
     # add the epsilon so there are no divide by 0 errors
@@ -12,5 +13,3 @@ def multi_class_cross_entropy(y, y_hat):
         loss += dud
         print(dud)
     return loss
-
-print(multi_class_cross_entropy(y,y_hat))

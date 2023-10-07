@@ -19,9 +19,12 @@ class Network:
     
     def train(self, epochs : int, train_data, val_data, verbose=True):
         for i in range(epochs):
+            epoch_loss = 0
             for x, y in train_data:
-                # TODO: train forward, maybe add minibatches to make faster?
-                pass
+                for layer in self.layers:
+                    output = x
+                    for layers in self.layers:
+                        output = layer.forward(output)
             
             for x, y in val_data:
                 # TODO: validation forward and loss
@@ -35,7 +38,6 @@ class Network:
         pass
     
     def history(self):
-        # TODO: get training history like in TF and PyTorch
         return self.history
     
     
