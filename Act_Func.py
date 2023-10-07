@@ -41,11 +41,7 @@ class Tanh(Activation):
 
 
 class Softmax(Activation):
-    def __init__(self):
-        def softmax(x):
-            temp = np.exp(x)
-            return temp / np.sum(temp)
-        
-        def derivative_softmax(x):
-            
+    # TODO: forward and backwards
+    # TODO: derivative of softmax in same shape of activation and z^L
+    pass
     
