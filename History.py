@@ -1,10 +1,11 @@
 import matplotlib.pyplot as plt
 
 class History:
-    def __init__(self):
+    def __init__(self, loss_string: str):
         self.epochs = []
         self.train_metric = []
         self.val_metric = []
+        self.loss_name = loss_string
         
     def add_epoch(self, e):
         self.epochs.append(e)
@@ -23,7 +24,7 @@ class History:
             plt.plot(self.epochs, self.val_metric, '-o', label="Validation")
         
         plt.xlabel("Epochs")
-        plt.ylabel("Loss")
+        plt.ylabel(self.loss_name)
         plt.figure(figsize=(10,6))
         plt.legend(loc='best')
         plt.show()
