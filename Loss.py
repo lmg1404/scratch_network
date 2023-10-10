@@ -1,10 +1,10 @@
 import numpy as np
 
 class Binary_Cross_Entropy:
-    def compute(self, inputs):
+    def compute(self, y_hat, y):
         pass
     
-    def compute_derivative(self, inputs):
+    def compute_derivative(self, y_hat, y):
         pass
     
     def __str__(self):
