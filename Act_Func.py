@@ -41,11 +41,14 @@ class Tanh(Activation):
 
 
 class Softmax:
-    # TODO: derivative of softmax in same shape of activation and z^L
     def forward(self, input):
-        self.input = input
-        return self.forward_func(self.input)
+        top = np.exp(input)
+        self.output = top / np.sum(top)
+        return self.output # should be in the shape given, for MNIST it should be 10
     
+    # seeing indepedent code's video made this make so much more sense, probably best video for derivative
     def backward(self, grad):
-        raise NotImplementedError()
+        n = np.size(self.output)
+        tmp = np.tile(self.output, n)
+        return np.dot(tmp * (np.identity(n) - tmp.T), grad)
     
