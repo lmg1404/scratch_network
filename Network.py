@@ -17,14 +17,14 @@ class Network:
         else:
             self.layers = layers
     
-    def train(self, epochs : int, train_data, val_data, verbose=True):
+    def train(self, epochs : int, x_train, y_train, learning_rate=0.01, verbose=True):
         for i in range(epochs):
             # keep track of losses for overfitting if verbose/history
             epoch_train_loss = 0
-            epoch_val_loss = 0
             
-            # train outr model
-            for x, y in train_data:
+            # independent code's way of doing zip is way better than what i had before
+            # train our model
+            for x, y in zip(x_train, y_train):
                 
                 # compute forward
                 output = x
@@ -35,44 +35,26 @@ class Network:
                 # go backwards
                 backwards = self.loss_func.compute_derivative(output, y)
                 for layer in self.layer.reverse():
-                    backwards = layer.backward(backwards)
+                    backwards = layer.backward(backwards, learning_rate)
             
             # average loss
-            epoch_train_loss /= len(train_data)
-                    
-            # validation to make sure we're generalizing well
-            for x, y in val_data:
-                output = x
-                for layer in self.layers:
-                    output = layer.forward(output)
-                epoch_val_loss += self.loss_func.compute(output, y)
-                
-            # average loss again
-            epoch_val_loss /= len(val_data)
+            epoch_train_loss /= len(x_train)
             
             # verbose so we get a terminal output
             if verbose:
-                print(f"Epoch: {i+1} / Train loss: {epoch_train_loss} / Validation Loss: {epoch_val_loss}")
+                print(f"Epoch: {i+1} / Train loss: {epoch_train_loss}")
             
             # adding to history so we can plot if we want to by calling history
             self.history.add_epoch(i)
             self.history.add_train_metric(epoch_train_loss)
-            self.history.add_val_metric(epoch_val_loss)
     
-    def predict(self, test_data, verbose=True):
-        
-        # initialize loss to 0, go forward like before but not backwards
-        test_loss = 0
-        for x, y in test_data:
-            output = x
-            for layer in self.layers:
-                output = layer.forward(output)
-            test_loss += self.loss_func.compute(output, y)
-                
-        # average loss again
-        test_loss /= len(test_data)
-        
-        self.history.add_test_metric(test_loss)
+    def predict(self, test_data):
+        # I have no idea why I put that before
+        # cleaner and the correct way for 1 training example
+        output = test_data
+        for layer in self.layers:
+            output = layer.forward(output)
+        return output
     
     def history(self):
         return self.history

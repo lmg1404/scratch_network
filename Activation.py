@@ -12,6 +12,6 @@ class Activation(Layer):
         self.input = input
         return self.forward_func(self.input)
     
-    def backward(self, grad):
+    def backward(self, grad, learning_rate):
         # this should be a hadamard product, scalar by vector/element wise for vectors
         return grad * self.backward_func(self.input) 

@@ -21,7 +21,7 @@ class History:
         self.test_metric.append(test_m)
         self.test_metric *= len(self.epochs) # this should work since the list should be 1 value that many times
         
-    def plot(self, train=True, val=True, test=True):
+    def plot(self, train=True, val=False, test=True):
         if train:
             plt.plot(self.epochs, self.train_metric, '-o', label="Train")
             

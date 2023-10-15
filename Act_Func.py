@@ -40,8 +40,12 @@ class Tanh(Activation):
         super().__init__(tanh, derivative_tanh)
 
 
-class Softmax(Activation):
-    # TODO: forward and backwards
+class Softmax:
     # TODO: derivative of softmax in same shape of activation and z^L
-    pass
+    def forward(self, input):
+        self.input = input
+        return self.forward_func(self.input)
+    
+    def backward(self, grad):
+        raise NotImplementedError()
     
