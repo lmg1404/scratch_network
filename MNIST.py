@@ -15,8 +15,9 @@ print(y_test.shape)
 print(y_train[0])
 
 def preprocess(x, y):
-    x = x.reshape(x.shape[0], 28*28) # NN is flat, so i don't think a square will work
+    x = x.reshape(x.shape[0], 28*28, 1) # NN is flat, so i don't think a square will work, this gives a column (good)
     y = to_categorical(y)
+    y = y.reshape(y.shape[0], 10, 1) # gives a column, likely that the loss function won't work without it
     return x, y
 
 x_train, y_train = preprocess(x_train, y_train)
@@ -26,4 +27,3 @@ layers = [Dense(100, 28*28, "he-et-al"), Sigmoid(), Dense(40, 100, "he-et-al"), 
 loss = Binary_Cross_Entropy()
 
 network = Network(loss, layers)
-network.train(80, )

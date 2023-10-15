@@ -6,7 +6,7 @@ class Network:
     def __init__(self, loss_func, layers=None):
         self.layers = layers # list or nothing there
         self.loss_func = loss_func # class?
-        self.history = History()
+        self.history = History(str(loss_func))
     
     def add(self, layers : list): # just adding a list makes everything much easier
         if self.layers:

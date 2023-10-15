@@ -13,3 +13,6 @@ class Binary_Cross_Entropy:
         for i in range(len(y)):
             back += y[i]/y_hat[i] + (1-y[i])/(1-y_hat[i]) 
         return back
+    
+    def __str__(self):
+        return "Binary Cross Entropy"
