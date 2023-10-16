@@ -94,11 +94,11 @@ class Dense(Layer):
         np.array
             Array to be fed into previous layers to do backpropagation, a vector
         """
-        # TODO: add optimizer choice (ADAM, GD, RMS)
-        gradient_change = np.dot(grad, self.input.T) # two vectors, transpose to get matrix in shape of weights
-        self.weights -= learning_rate * gradient_change # should be in same shape to do element wise subtraction
-        self.bias -= learning_rate * grad 
-        return np.dot(self.weights.T, grad) # should output in the shape of inputs of forward
+        weights_gradient = np.dot(grad, self.input.T)
+        input_gradient = np.dot(self.weights.T, grad)
+        self.weights -= learning_rate * weights_gradient
+        self.bias -= learning_rate * grad
+        return input_gradient
         
         
     def get_params(self, weights=True, bias=True):

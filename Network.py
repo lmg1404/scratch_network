@@ -34,7 +34,7 @@ class Network:
                 
                 # go backwards
                 backwards = self.loss_func.compute_derivative(output, y)
-                for layer in self.layer.reverse():
+                for layer in reversed(self.layers):
                     backwards = layer.backward(backwards, learning_rate)
             
             # average loss
@@ -56,8 +56,8 @@ class Network:
             output = layer.forward(output)
         return output
     
-    def history(self):
-        return self.history
+    def plot(self):
+        self.history.plot()
     
     
     

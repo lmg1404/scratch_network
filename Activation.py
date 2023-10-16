@@ -1,4 +1,5 @@
 from Layer import Layer
+import numpy as np
 
 class Activation(Layer):
     def __init__(self, forward_func, backwards_func):
@@ -14,4 +15,4 @@ class Activation(Layer):
     
     def backward(self, grad, learning_rate):
         # this should be a hadamard product, scalar by vector/element wise for vectors
-        return grad * self.backward_func(self.input) 
+        return np.multiply(grad, self.backward_func(self.input) )
