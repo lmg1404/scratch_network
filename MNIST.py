@@ -34,4 +34,4 @@ x_train = x_train[random_selections]
 y_train = y_train[random_selections]
 
 network = Network(loss, layers)
-network.train(20, x_train, y_train, 0.1, True)
+network.train(20, x_train, y_train, 0.01, True)

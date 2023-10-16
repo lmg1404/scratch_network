@@ -43,7 +43,7 @@ class Dense(Layer):
         
         if initializiation.lower() == "random":
             self.weights = np.random.randn(output_shape, input_shape) * 0.01
-            self.bias = np.random.randn(output_shape, 1) * 0.01
+            self.bias = np.zeros((output_shape, 1))
             
         elif initializiation.lower() == "zero":
             self.weights = np.zeros((output_shape, input_shape))
@@ -53,7 +53,7 @@ class Dense(Layer):
             # found in this Medium article:
             # https://towardsdatascience.com/random-initialization-for-neural-networks-a-thing-of-the-past-bfcdd806bf9e
             self.weights = np.random.randn(output_shape, input_shape) * np.sqrt(2/input_shape)
-            self.bias = np.random.randn(output_shape, 1) * np.sqrt(2/input_shape)
+            self.bias = np.zeros((output_shape, 1))
             
         else:
             raise TypeError("Initialization not random, zero, or he-et-al")

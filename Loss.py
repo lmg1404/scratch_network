@@ -2,11 +2,11 @@ import numpy as np
 
 class Binary_Cross_Entropy:
     def compute(self, y_hat, y):
-        epsilon = 1e-7 # here incase there are any 0s
+        y_hat = np.clip(y_hat, 1e-5, 1 - 1e-5)
         # had to fix, should be mean across given training example
         # log10 also didn't make any sense, I think the algo would prob freak out
         # again using IC since I couldn't come up with the correct answer the first time
-        return np.mean(-y*np.log(y_hat + epsilon) - (1-y)*np.log(1-y_hat + epsilon))
+        return np.mean(-y*np.log(y_hat) - (1-y)*np.log(1-y_hat))
     
     def compute_derivative(self, y_hat, y):
         y_hat = np.clip(y_hat, 1e-7, 1 - 1e-7)
