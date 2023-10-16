@@ -35,3 +35,5 @@ y_train = y_train[random_selections]
 
 network = Network(loss, layers)
 network.train(20, x_train, y_train, 0.01, True)
+
+# this is exploding in my face, i'll have to come back once I understand how to prevent this
